@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "webpack --mode development --watch --config build/webpack-config-build.js",
     "build": "webpack --mode production --config build/webpack-config-build.js",
-    "play": "webpack-dev-server --config build/webpack-config-preview.js"
+    "play": "webpack-dev-server --config build/webpack-config-preview.js",
+    "release": "bash scripts/release.sh",
+    "standard-version": "standard-version"
   },
   "author": "",
   "license": "ISC",
@@ -18,6 +20,7 @@
     "@webpack-cli/serve": "^2.0.5",
     "babel-loader": "^8.3.0",
     "copy-webpack-plugin": "6.2.1",
+    "standard-version": "^9.3.1",
     "terser-webpack-plugin": "^4.2.3",
     "vue-loader": "^15.7.0",
     "vue-template-compiler": "^2.7.10",
