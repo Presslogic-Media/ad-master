@@ -9,6 +9,12 @@
 import { AdMaster } from '../ad-master/AdMaster'
 
 export default {
+  props: {
+    adUnitKey: {
+      type: String,
+      default: 'M1'
+    }
+  },
   data () {
     return {
       id: ''
@@ -22,8 +28,10 @@ export default {
   methods: {
     initAdSlot() {
       this.id = AdMaster.generateId()
+      const adConfig = AdMaster.getAdUnit(this.adUnitKey)
+      console.log('adConfig: ', adConfig)
       const adMaster = new AdMaster(this.id, 'biu-test-ad-unit-1')
-      console.log(111, adMaster)
+      console.log('adSlot adMaster: ', adMaster)
     }
   }
 }

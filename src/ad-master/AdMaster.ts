@@ -33,7 +33,6 @@ class Logger {
       console.error(`------ Logger -------${this.adMaster?.adSlotId}----${logData.title}`)
     }
     this.logData.push(logData)
-    console.log(111)
   }
 }
 
