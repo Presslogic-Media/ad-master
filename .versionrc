@@ -1,0 +1,10 @@
+{
+  "types": [
+    {"type": "feat", "section": "Features"},
+    {"type": "fix", "section": "Bug Fixes"},
+    {"type": "chore", "section": "Chore", "hidden": false },
+    {"type": "refactor", "section": "Refactor"},
+    {"type": "perf", "section": "Performance"},
+    {"type": "campaign", "section": "Campaign"}
+  ]
+}
