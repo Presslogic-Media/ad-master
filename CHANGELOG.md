@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.4](https://presslogic/Presslogic-Media/ad-master/compare/v1.1.3...v1.1.4) (2023-10-11)
+
+
+### Chore
+
+* 添加readme.md ([8c77dce](https://presslogic/Presslogic-Media/ad-master/commit/8c77dceb20dd7b3cbb72532e2df11e1d736835c0))
+
 ### [1.1.3](https://presslogic/Presslogic-Media/ad-master/compare/v1.1.2...v1.1.3) (2023-10-11)
 
 ### [1.1.2](https://presslogic/Presslogic-Media/ad-master/compare/v1.1.1...v1.1.2) (2023-10-11)
