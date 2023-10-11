@@ -31,7 +31,7 @@ module.exports = merge(baseConfig, {
         new TerserPlugin({
           terserOptions: {
             keep_classnames: true,
-            // keep_fnames: true
+            keep_fnames: true
           }
         })
       ]
