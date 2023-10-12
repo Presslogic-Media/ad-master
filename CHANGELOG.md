@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.2.2](https://presslogic/Presslogic-Media/ad-master/compare/v1.2.1...v1.2.2) (2023-10-12)
+
+
+### Chore
+
+* adSlot组件开发调试 ([dc75862](https://presslogic/Presslogic-Media/ad-master/commit/dc75862b8b8f2db74f0d08497d3d0e1257f1b5fc))
+
 ### [1.2.1](https://presslogic/Presslogic-Media/ad-master/compare/v1.2.0...v1.2.1) (2023-10-12)
 
 
