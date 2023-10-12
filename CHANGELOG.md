@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.2.1](https://presslogic/Presslogic-Media/ad-master/compare/v1.2.0...v1.2.1) (2023-10-12)
+
+
+### Chore
+
+* 处理sass构建问题 ([6b60473](https://presslogic/Presslogic-Media/ad-master/commit/6b6047306e49fee78debd170aac75bd5378d47e1))
+
 ## [1.2.0](https://presslogic/Presslogic-Media/ad-master/compare/v1.1.4...v1.2.0) (2023-10-11)
 
 
