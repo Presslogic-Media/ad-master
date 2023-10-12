@@ -1,6 +1,7 @@
 
 <template>
   <div class="ad-slot-wrap">
+    <small>{{ advertisingText }}</small>
     <div :id="id"></div>
   </div>
 </template>
@@ -13,6 +14,10 @@ export default {
     adUnitKey: {
       type: String,
       default: 'M1'
+    },
+    advertisingText: {
+      type: String,
+      default: '廣告'
     }
   },
   data () {
@@ -36,3 +41,12 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.ad-slot-wrap {
+  small {
+    display: flex;
+    justify-content: center;
+  }
+}
+</style>
