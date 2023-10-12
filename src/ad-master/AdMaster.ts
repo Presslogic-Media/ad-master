@@ -155,7 +155,7 @@ class AdMaster {
   /** 广告单元 */
   private adUnit = ''
   /** 是否开启adsense测试模式 */
-  private adsenseTestMode = true
+  private adsenseTestMode = false
   /** 是否展示受限广告 https://developers.google.com/publisher-tag/samples/display-limited-ad?hl=zh-cn */
   private limitedAds = false
   /** log实例 */
