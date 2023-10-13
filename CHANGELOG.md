@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.2.3](https://presslogic/Presslogic-Media/ad-master/compare/v1.2.2...v1.2.3) (2023-10-13)
+
+
+### Bug Fixes
+
+* 修复display找不到div id的问题 ([051e723](https://presslogic/Presslogic-Media/ad-master/commit/051e723ef01c731a449f456ca883e9d1283c7ed3))
+
 ### [1.2.2](https://presslogic/Presslogic-Media/ad-master/compare/v1.2.1...v1.2.2) (2023-10-12)
 
 
