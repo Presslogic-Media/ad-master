@@ -1,8 +1,12 @@
 
 <template>
-  <div class="ad-slot-wrap" :style="{ '--bg': currentBg }">
-    <div class="ad-slot-main" v-if="!isEmpty">
-      <small class="ad-slot-title" v-if="adTitle">{{ adTitle }}</small>
+  <div
+    :data-key="adUnitKey"
+    :class="['ad-slot-wrap', { 'is-empty': isEmpty, 'is-fit': isFit }]"
+    :style="{ '--bg': currentBg }">
+    <div
+      :class="['ad-slot-main']">
+      <small class="ad-slot-title" v-if="adTitle && !isFit">{{ adTitle }}</small>
       <div :id="id"></div>
     </div>
   </div>
@@ -29,9 +33,25 @@ export default {
     background: {
       type: [Boolean, String],
       default: true
+    },
+    /**
+     * 是否为sponor广告
+     */
+    isSponsor: {
+      type: Boolean,
+      default: false
+    },
+    mode: {
+      type: String,
+      default: 'normal',
+      validator: (mode) => ['fit', 'normal'].includes(mode)
     }
   },
   computed: {
+    /** 只展示广告的内容 */
+    isFit() {
+      return this.mode === 'fit'
+    },
     currentBg() {
       if (typeof this.background === 'boolean') {
         return this.background ? '#f0f0f0' : 'transparent'
@@ -52,16 +72,39 @@ export default {
     async initAdSlot() {
       this.id = AdMaster.generateId()
       await this.$nextTick()
-      const adConfig = AdMaster.getAdUnit(this.adUnitKey)
-      const adMaster = new AdMaster(this.id, adConfig.adUnit, {
-        size: adConfig.size,
+      let adConfig = AdMaster.getAdUnit(this.adUnitKey)
+      /** sponsor 广告 */
+      if (this.isSponsor && adConfig.sponsor) {
+        adConfig = adConfig.sponsor
+      }
+      const adUnit = adConfig.adUnit
+      const size = adConfig.size
+      const passback = adConfig.passback
+      const adMaster = new AdMaster(this.id, adUnit, {
+        size,
         hooks: {
           slotRenderEnded: (evt) => {
-            this.isEmpty = evt.isEmpty
+            // this.isEmpty = evt.isEmpty
+            console.log(0, evt.isEmpty, passback)
+            if (evt.isEmpty && passback) {
+              adMaster.destroySlots()
+              this.id = AdMaster.generateId()
+              this.$nextTick(() => {
+                const passbackAdMaster = new AdMaster(this.id, passback.adUnit, {
+                  size: passback.size,
+                  hooks: {
+                    slotRenderEnded: (evt) => {
+                      this.isEmpty = evt.isEmpty
+                    }
+                  }
+                })
+                console.log(2, passbackAdMaster)
+              })
+            }
           }
         }
       })
-      console.log('adSlot adMaster: ', adMaster)
+      console.log(1, this.adUnitKey, adMaster)
     }
   }
 }
@@ -77,6 +120,7 @@ export default {
     margin: 0 auto;
     padding-top: 12px;
     padding-bottom: 24px;
+    
   }
   .ad-slot-title {
     display: flex;
@@ -84,6 +128,12 @@ export default {
     font-size: 12px;
     line-height: 35px;
     margin-bottom: 12px;
+  }
+  &.is-empty, &.is-fit {
+    background-color: transparent;
+    .ad-slot-main {
+      padding: 0;
+    }
   }
 }
 </style>

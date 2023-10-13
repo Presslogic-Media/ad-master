@@ -53,6 +53,8 @@ export type AdUnitConfigValue =  {
     adUnit: string;
     autoRefresh?: boolean;
     lazy?: boolean;
+    sponsor?: AdUnitConfigValue;
+    passback?: AdUnitConfigValue;
 } & IConfig
 export type AdUnitConfig = {
     [key: string]: AdUnitConfigValue
