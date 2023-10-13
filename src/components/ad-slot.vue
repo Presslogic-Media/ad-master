@@ -1,8 +1,8 @@
 
 <template>
   <div class="ad-slot-wrap" :style="{ '--bg': currentBg }">
-    <div class="ad-slot-main">
-      <small class="ad-slot-title">{{ advertisingText }}</small>
+    <div class="ad-slot-main" v-if="!isEmpty">
+      <small class="ad-slot-title" v-if="adTitle">{{ adTitle }}</small>
       <div :id="id"></div>
     </div>
   </div>
@@ -13,11 +13,13 @@ import { AdMaster } from '../ad-master/AdMaster'
 
 export default {
   props: {
+    /** 广告的别名key */
     adUnitKey: {
       type: String,
       default: 'M1'
     },
-    advertisingText: {
+    /** 广告的提示标题 */
+    adTitle: {
       type: String,
       default: '廣告'
     },
@@ -39,11 +41,12 @@ export default {
   },
   data () {
     return {
+      isEmpty: false,
       id: AdMaster.generateId()
     }
   },
   mounted() {
-      this.initAdSlot()
+    this.initAdSlot()
   },
   methods: {
     async initAdSlot() {
@@ -52,6 +55,11 @@ export default {
       const adConfig = AdMaster.getAdUnit(this.adUnitKey)
       const adMaster = new AdMaster(this.id, adConfig.adUnit, {
         size: adConfig.size,
+        hooks: {
+          slotRenderEnded: (evt) => {
+            this.isEmpty = evt.isEmpty
+          }
+        }
       })
       console.log('adSlot adMaster: ', adMaster)
     }
@@ -61,14 +69,14 @@ export default {
 
 <style lang="scss" scoped>
 .ad-slot-wrap {
-  padding-top: 12px;
-  padding-bottom: 24px;
   background-color: var(--bg);
   .ad-slot-main {
     display: flex;
     flex-direction: column;
     align-items: center;
     margin: 0 auto;
+    padding-top: 12px;
+    padding-bottom: 24px;
   }
   .ad-slot-title {
     display: flex;
