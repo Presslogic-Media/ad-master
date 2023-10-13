@@ -84,8 +84,7 @@ export default {
         size,
         hooks: {
           slotRenderEnded: (evt) => {
-            // this.isEmpty = evt.isEmpty
-            console.log(0, evt.isEmpty, passback)
+            /** passback */
             if (evt.isEmpty && passback) {
               adMaster.destroySlots()
               this.id = AdMaster.generateId()
@@ -95,16 +94,15 @@ export default {
                   hooks: {
                     slotRenderEnded: (evt) => {
                       this.isEmpty = evt.isEmpty
+                      console.log(`=====> paccback ${this.isEmpty ? 'error' : 'success'}`)
                     }
                   }
                 })
-                console.log(2, passbackAdMaster)
               })
             }
           }
         }
       })
-      console.log(1, this.adUnitKey, adMaster)
     }
   }
 }
