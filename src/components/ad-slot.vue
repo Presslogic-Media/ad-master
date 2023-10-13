@@ -1,8 +1,10 @@
 
 <template>
   <div class="ad-slot-wrap" :style="{ '--bg': currentBg }">
-    <small>{{ advertisingText }}</small>
-    <div :id="id"></div>
+    <div class="ad-slot-main">
+      <small class="ad-slot-title">{{ advertisingText }}</small>
+      <div :id="id"></div>
+    </div>
   </div>
 </template>
 
@@ -37,17 +39,16 @@ export default {
   },
   data () {
     return {
-      id: ''
+      id: AdMaster.generateId()
     }
   },
   mounted() {
-    this.$nextTick(() => {
       this.initAdSlot()
-    })
   },
   methods: {
-    initAdSlot() {
+    async initAdSlot() {
       this.id = AdMaster.generateId()
+      await this.$nextTick()
       const adConfig = AdMaster.getAdUnit(this.adUnitKey)
       const adMaster = new AdMaster(this.id, adConfig.adUnit, {
         size: adConfig.size,
@@ -63,7 +64,13 @@ export default {
   padding-top: 12px;
   padding-bottom: 24px;
   background-color: var(--bg);
-  small {
+  .ad-slot-main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
+  }
+  .ad-slot-title {
     display: flex;
     justify-content: center;
     font-size: 12px;
