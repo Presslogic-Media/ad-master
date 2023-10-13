@@ -1,1 +1,56 @@
-.ad-slot-wrap[data-v-9e3d7a8e]{background-color:var(--bg)}.ad-slot-wrap .ad-slot-main[data-v-9e3d7a8e]{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;-ms-flex-direction:column;flex-direction:column;-webkit-box-align:center;-ms-flex-align:center;align-items:center;margin:0 auto;padding-top:12px;padding-bottom:24px}.ad-slot-wrap .ad-slot-title[data-v-9e3d7a8e]{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center;font-size:12px;line-height:35px;margin-bottom:12px}.ad-slot-wrap.is-empty[data-v-9e3d7a8e],.ad-slot-wrap.is-fit[data-v-9e3d7a8e]{background-color:transparent}.ad-slot-wrap.is-empty .ad-slot-main[data-v-9e3d7a8e],.ad-slot-wrap.is-fit .ad-slot-main[data-v-9e3d7a8e]{padding:0}
+.ad-slot-wrap[data-v-4de098f0] {
+  background-color: var(--bg);
+}
+.ad-slot-wrap .ad-slot-main[data-v-4de098f0] {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin: 0 auto;
+  padding-top: 12px;
+  padding-bottom: 24px;
+}
+.ad-slot-wrap .ad-slot-title[data-v-4de098f0] {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  font-size: 12px;
+  line-height: 35px;
+  margin-bottom: 12px;
+}
+.ad-slot-wrap.is-empty[data-v-4de098f0], .ad-slot-wrap.is-fit[data-v-4de098f0] {
+  background-color: transparent;
+}
+.ad-slot-wrap.is-empty .ad-slot-main[data-v-4de098f0], .ad-slot-wrap.is-fit .ad-slot-main[data-v-4de098f0] {
+  padding: 0;
+}
+.ad-slot-wrap .ad-slot-main[data-v-48563182] {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin: 0 auto;
+  padding-top: 12px;
+}
+.ad-slot-wrap .ad-slot-main[data-v-48563182]  iframe {
+  width: 100vw;
+  height: auto;
+}
+.ad-slot-wrap .ad-slot-main[data-v-48563182]  iframe a {
+  color: red;
+}
