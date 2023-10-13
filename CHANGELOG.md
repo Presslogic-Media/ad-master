@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.2.4](https://presslogic/Presslogic-Media/ad-master/compare/v1.2.3...v1.2.4) (2023-10-13)
+
+
+### Chore
+
+* 测试依赖 ([a002185](https://presslogic/Presslogic-Media/ad-master/commit/a002185149d2e573418430052c9b7fc9cca7b42c))
+* 处理广告空的问题 ([b2a3fb6](https://presslogic/Presslogic-Media/ad-master/commit/b2a3fb64e6e3de5014d012e2b2131f4e4256a22e))
+
 ### [1.2.3](https://presslogic/Presslogic-Media/ad-master/compare/v1.2.2...v1.2.3) (2023-10-13)
 
 
