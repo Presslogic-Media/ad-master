@@ -1,7 +1,7 @@
 
 <template>
-  <div class="ad-slot-wrap">
-    <div class="ad-slot-main" v-if="!isEmpty">
+  <div class="ad-slot-text-wrap">
+    <div class="ad-slot-text-main" v-if="!isEmpty">
       <div :id="id"></div>
     </div>
   </div>
@@ -47,8 +47,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.ad-slot-wrap {
-  .ad-slot-main {
+.ad-slot-text-wrap {
+  .ad-slot-text-main {
     display: flex;
     flex-direction: column;
     align-items: center;

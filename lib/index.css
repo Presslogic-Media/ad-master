@@ -33,7 +33,7 @@
 .ad-slot-wrap.is-empty .ad-slot-main[data-v-4de098f0], .ad-slot-wrap.is-fit .ad-slot-main[data-v-4de098f0] {
   padding: 0;
 }
-.ad-slot-wrap .ad-slot-main[data-v-48563182] {
+.ad-slot-text-wrap .ad-slot-text-main[data-v-48563182] {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -47,10 +47,10 @@
   margin: 0 auto;
   padding-top: 12px;
 }
-.ad-slot-wrap .ad-slot-main[data-v-48563182]  iframe {
+.ad-slot-text-wrap .ad-slot-text-main[data-v-48563182]  iframe {
   width: 100vw;
   height: auto;
 }
-.ad-slot-wrap .ad-slot-main[data-v-48563182]  iframe a {
+.ad-slot-text-wrap .ad-slot-text-main[data-v-48563182]  iframe a {
   color: red;
 }
