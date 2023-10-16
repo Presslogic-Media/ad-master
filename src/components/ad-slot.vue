@@ -13,7 +13,7 @@
 </template>
 
 <script lang="ts">
-import { AdMaster } from '../ad-master/AdMaster'
+import { AdMaster, InterObserver } from '../ad-master/AdMaster'
 
 export default {
   props: {
@@ -62,13 +62,29 @@ export default {
   data () {
     return {
       isEmpty: false,
-      id: AdMaster.generateId()
+      id: AdMaster.generateId(),
+      adMaster: null
     }
   },
   mounted() {
-    this.initAdSlot()
+    const config = AdMaster.getAdUnit(this.adUnitKey)
+    if (!config) return
+    if (config.lazy) {
+      this.initLazyLoad()
+    } else {
+      this.initAdSlot()
+    }
+    // this.initAdSlot()
   },
   methods: {
+    /** 懒加载 */
+    initLazyLoad () {
+      if (this.adMaster) return
+      const observer = new InterObserver(this.$el)
+      observer.bindObserver(() => {
+        this.initAdSlot()
+      })
+    },
     async initAdSlot() {
       this.id = AdMaster.generateId()
       await this.$nextTick()
@@ -80,21 +96,22 @@ export default {
       const adUnit = adConfig.adUnit
       const size = adConfig.size
       const passback = adConfig.passback
-      const adMaster = new AdMaster(this.id, adUnit, {
+      this.adMaster = new AdMaster(this.id, adUnit, {
         size,
         hooks: {
           slotRenderEnded: (evt) => {
             /** passback */
             if (evt.isEmpty && passback) {
-              adMaster.destroySlots()
+              this.adMaster.destroySlots()
               this.id = AdMaster.generateId()
               this.$nextTick(() => {
-                const passbackAdMaster = new AdMaster(this.id, passback.adUnit, {
+                this.adMaster = new AdMaster(this.id, passback.adUnit, {
                   size: passback.size,
                   hooks: {
                     slotRenderEnded: (evt) => {
                       this.isEmpty = evt.isEmpty
-                      console.log(`=====> paccback ${this.isEmpty ? 'error' : 'success'}`)
+                      this.adMaster.setAdUnitKey(`${this.adUnitKey}-passback`)
+                      console.log(`=====> passback ${this.isEmpty ? 'error' : 'success'}`)
                     }
                   }
                 })
@@ -103,6 +120,7 @@ export default {
           }
         }
       })
+      this.adMaster.setAdUnitKey(this.adUnitKey)
     }
   }
 }

@@ -30,7 +30,11 @@ class Logger {
     }
     const logData = Object.assign(defaultLog, data)
     if (logData.status === ELoStatus.error) {
-      console.error(`------ Logger -------${this.adMaster?.adSlotId}----${logData.title}`)
+      console.error(`------ Logger -------${this.adMaster?.adSlotId}-- ${this.adMaster?.adUnitKey} --${logData.title}`)
+      console.log(this.adMaster)
+    } else if (logData.status === ELoStatus.success) {
+      console.log(this.adMaster)
+      console.log(`------ Logger -------${this.adMaster?.adSlotId}-- ${this.adMaster?.adUnitKey} --${logData.title}`)
     }
     this.logData.push(logData)
   }
@@ -153,7 +157,9 @@ class AdMaster {
   /** 广告的唯一ID */
   adSlotId = ''
   /** 广告单元 */
-  private adUnit = ''
+  adUnit = ''
+  /** 广告单元别名key */
+  adUnitKey = ''
   /** 是否开启adsense测试模式 */
   private adsenseTestMode = false
   /** 是否展示受限广告 https://developers.google.com/publisher-tag/samples/display-limited-ad?hl=zh-cn */
@@ -212,7 +218,8 @@ class AdMaster {
   /**
    * 初始化广告位
    */
-  initAdSlot() {
+  async initAdSlot() {
+    await Promise.resolve()
     const id = this.adSlotId
     googletag.cmd.push(() => {
       /** 开启 adsense 测试模式 */
@@ -268,6 +275,11 @@ class AdMaster {
         title: 'adSlot isEmpty!!!'
       })
       this.isEmpty = true
+    } else {
+      this.logger.setLog({
+        status: ELoStatus.success,
+        title: 'adSlot fetch!!!'
+      })
     }
   }
 
@@ -324,6 +336,10 @@ class AdMaster {
     const adMasterGlobal = AdMasterGlobal.getInstance()
     return adMasterGlobal.adUnitMap?.[key] || null
   }
+
+  setAdUnitKey (key: string) {
+    this.adUnitKey = key
+  }
 }
 
 /**
@@ -335,7 +351,7 @@ class InterObserver {
   callback: any
   isEntered = false
   options: IntersectionObserverInit = {
-    rootMargin: '100px',
+    // rootMargin: '100px',
     // threshold: [0.1, 0.2, 0.5, 0.8, 0.9, 1],
   }
 
