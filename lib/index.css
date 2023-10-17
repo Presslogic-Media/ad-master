@@ -54,3 +54,11 @@
 .ad-slot-text-wrap .ad-slot-text-main[data-v-48563182]  iframe a {
   color: red;
 }
+.ad-slot-script-wrap[data-v-29f5a2e0] {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}

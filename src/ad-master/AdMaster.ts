@@ -29,13 +29,13 @@ class Logger {
       status: ELoStatus.log,
     }
     const logData = Object.assign(defaultLog, data)
-    if (logData.status === ELoStatus.error) {
-      console.error(`------ Logger -------${this.adMaster?.adSlotId}-- ${this.adMaster?.adUnitKey} --${logData.title}`)
-      console.log(this.adMaster)
-    } else if (logData.status === ELoStatus.success) {
-      console.log(this.adMaster)
-      console.log(`------ Logger -------${this.adMaster?.adSlotId}-- ${this.adMaster?.adUnitKey} --${logData.title}`)
-    }
+    // if (logData.status === ELoStatus.error) {
+    //   console.error(`------ Logger -------${this.adMaster?.adSlotId}-- ${this.adMaster?.adUnitKey} --${logData.title}`)
+    //   console.log(this.adMaster)
+    // } else if (logData.status === ELoStatus.success) {
+    //   console.log(this.adMaster)
+    //   console.log(`------ Logger -------${this.adMaster?.adSlotId}-- ${this.adMaster?.adUnitKey} --${logData.title}`)
+    // }
     this.logData.push(logData)
   }
 }
@@ -55,8 +55,15 @@ class AdMasterGlobal {
 
   adUnitMap: AdUnitConfig  = {}
 
+  /** 禁用ad-slot-script广告 */
+  static disabledScript: boolean = false
+
+  /** 当前页面的url */
+  static pageUrl = ''
+
   private constructor(options: IConfig = {}) {
     this.config = options
+    AdMasterGlobal.setPageUrl(options.pageUrl)
   }
 
   /** 获取当前全局的广告配置 */
@@ -140,6 +147,14 @@ class AdMasterGlobal {
         callback?.(evt)
       })
     })
+  }
+
+  static setPageUrl(url = '') {
+    AdMasterGlobal.pageUrl = url
+  }
+
+  static changeScriptDisabled(val: boolean) {
+    AdMasterGlobal.disabledScript = val
   }
 }
 
@@ -243,7 +258,7 @@ class AdMaster {
       })
 
       /** 影响 ad exchange 广告的填充率 */
-      googletag.pubads().set('page_url', this.config.pageUrl || '')
+      googletag.pubads().set('page_url', AdMasterGlobal.pageUrl)
       // googletag.pubads().set('page_url', 'https://businessfocus.io')
 
       googletag.enableServices()
@@ -350,13 +365,13 @@ class InterObserver {
   observer!: IntersectionObserver
   callback: any
   isEntered = false
-  options: IntersectionObserverInit = {
-    // rootMargin: '100px',
-    // threshold: [0.1, 0.2, 0.5, 0.8, 0.9, 1],
+  options: IntersectionObserverInit = {}
+  defaultOptions: IntersectionObserverInit = {
+    rootMargin: '300px'
   }
-
-  constructor(ele: Element) {
+  constructor(ele: Element, options?: IntersectionObserverInit) {
     this.target = ele
+    this.options = options || this.defaultOptions
     this.initObser()
   }
 
