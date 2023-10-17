@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.3.0](https://presslogic/Presslogic-Media/ad-master/compare/v1.2.4...v1.3.0) (2023-10-17)
+
+
+### Features
+
+* 开发textad新组件【MT-1163】 ([90ad993](https://presslogic/Presslogic-Media/ad-master/commit/90ad993cabf2c1683a359b5e0a8cd3cfd6427fbe))
+
+
+### Chore
+
+* 调整广告title ([2815f57](https://presslogic/Presslogic-Media/ad-master/commit/2815f570a346e4ebc0d70979d065f69a9a9aa13a))
+* 调整textad的class名 ([4d3ae36](https://presslogic/Presslogic-Media/ad-master/commit/4d3ae36a0fa5edfc77d438057660f435e27122d5))
+* 开发adSlot懒加载 ([bc9d75d](https://presslogic/Presslogic-Media/ad-master/commit/bc9d75d44f399993eabd3691b5970fa9c08e6640))
+* 懒加载开发 ([2f90e66](https://presslogic/Presslogic-Media/ad-master/commit/2f90e66dda92c8e0c88f41e807fdc030aafecb8b))
+* 增加passback ([b0da620](https://presslogic/Presslogic-Media/ad-master/commit/b0da620bfdd4d08e30cf83ccdf1e2a17d15ae995))
+
 ### [1.2.4](https://presslogic/Presslogic-Media/ad-master/compare/v1.2.3...v1.2.4) (2023-10-13)
 
 
