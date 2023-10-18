@@ -1,5 +1,9 @@
 <template>
-    <div class="ad-slot-script-wrap" :id="id"></div>
+    <div
+        :data-key="adUnitKey"
+        class="ad-slot-script-wrap">
+        <div :id="id"></div>
+    </div>
 </template>
 
 <script lang="ts">
@@ -21,11 +25,10 @@ export default {
   data () {
     return {
       isEmpty: false,
-      id: AdMaster.generateId()
+      id: ''
     }
   },
   mounted() {
-    console.log(1111, AdMasterGlobal.disabledScript)
     if (!AdMasterGlobal.disabledScript) {
         this.initAdSlot()
     }
@@ -48,7 +51,6 @@ export default {
         }
       })
       adMaster.setAdUnitKey(this.adUnitKey)
-      console.log('adSlot script adMaster: ', adMaster)
     }
   }
 }
@@ -58,5 +60,7 @@ export default {
 .ad-slot-script-wrap {
     display: flex;
     justify-content: center;
+    width: 1px;
+    height: 0px;
 }
 </style>

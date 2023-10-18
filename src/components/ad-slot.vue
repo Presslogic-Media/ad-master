@@ -80,7 +80,7 @@ export default {
     /** 懒加载 */
     initLazyLoad () {
       if (this.adMaster) return
-      const observer = new InterObserver(this.$el)
+      const observer = new InterObserver(this.$el, { rootMargin: '500px' })
       observer.bindObserver(() => {
         this.initAdSlot()
       })
