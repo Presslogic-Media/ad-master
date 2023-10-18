@@ -38,6 +38,7 @@ export default {
       this.id = AdMaster.generateId()
       await this.$nextTick()
       let adConfig = AdMaster.getAdUnit(this.adUnitKey)
+      if (!adConfig) return
       /** sponsor 广告 */
       if (this.isSponsor && adConfig.sponsor) {
         adConfig = adConfig.sponsor
