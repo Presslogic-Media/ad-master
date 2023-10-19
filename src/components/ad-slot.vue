@@ -113,10 +113,14 @@ export default {
                       this.isEmpty = evt.isEmpty
                       this.adMaster.setAdUnitKey(`${this.adUnitKey}-passback`)
                       console.log(`=====> passback ${this.isEmpty ? 'error' : 'success'}`)
+                      this.$emit("renderEnded", Object.assign({passback: true}, evt))
                     }
                   }
                 })
+                this.adMaster.passback = true
               })
+            }else{
+              this.$emit("renderEnded", evt)
             }
           }
         }

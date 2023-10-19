@@ -48,6 +48,7 @@ export default {
         hooks: {
           slotRenderEnded: (evt) => {
             this.isEmpty = evt.isEmpty
+            this.$emit("renderEnded", evt)
           }
         }
       })

@@ -175,6 +175,8 @@ class AdMaster {
   adUnit = ''
   /** 广告单元别名key */
   adUnitKey = ''
+  /** passback标记  */
+  passback = false
   /** 是否开启adsense测试模式 */
   private adsenseTestMode = false
   /** 是否展示受限广告 https://developers.google.com/publisher-tag/samples/display-limited-ad?hl=zh-cn */
