@@ -85,6 +85,8 @@ class AdMasterGlobal {
   static initGoogletagCmd() {
     if (window.googletag) return
     window.googletag = window.googletag || { cmd: [] } as any
+    const config = AdMasterGlobal.getInstance().config
+    AdMasterGlobal.setTargetingGlobal(config.keyValue || {})
   }
 
   /** 加载 gpt.js */
@@ -156,6 +158,20 @@ class AdMasterGlobal {
   static changeScriptDisabled(val: boolean) {
     AdMasterGlobal.disabledScript = val
   }
+
+  /**
+   * 设置全局的key-value
+   * @param keyValue 
+   */
+  static setTargetingGlobal(keyValue: KeyValue) {
+    googletag.cmd.push(() => {
+      /** 设置key-value */
+      Object.entries(keyValue).forEach(item => {
+        const [key, value] = item
+        googletag.pubads().setTargeting(key, value)
+      })
+    })
+  }
 }
 
 /**
@@ -195,7 +211,7 @@ class AdMaster {
   }
 
   get keyValue (): KeyValue  {
-    return this.localConfig.keyValue || this.globalConfig.keyValue || {}
+    return this.localConfig.keyValue || {}
   }
 
   /** 当前networkCode */

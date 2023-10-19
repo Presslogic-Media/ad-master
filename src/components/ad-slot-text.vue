@@ -17,11 +17,28 @@ export default {
       type: String,
       default: 'feng-test-ad-unit'
     },
+    /**
+     * 广告位级别的key-value
+     */
+     keyValue: {
+      type: Object,
+      default: () => ({})
+    },
   },
   data () {
     return {
       isEmpty: false,
       id: AdMaster.generateId()
+    }
+  },
+  computed: {
+    /** 当前广告位的配置 */
+    adUnitConfig() {
+      return AdMaster.getAdUnit(this.adUnitKey)
+    },
+    /** 当前广告位的key-value */
+    currentKeyValue() {
+      return Object.assign({}, this.adUnitConfig.keyValue || {}, this.keyValue)
     }
   },
   mounted() {
@@ -34,6 +51,7 @@ export default {
       const adConfig = AdMaster.getAdUnit(this.adUnitKey)
       const adMaster = new AdMaster(this.id, adConfig.adUnit, {
         size: adConfig.size,
+        keyValue: this.currentKeyValue,
         hooks: {
           slotRenderEnded: (evt) => {
             this.isEmpty = evt.isEmpty

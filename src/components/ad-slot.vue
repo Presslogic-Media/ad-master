@@ -56,6 +56,13 @@ export default {
     emptyHidden: {
       type: Boolean,
       default: false
+    },
+    /**
+     * 广告位级别的key-value
+     */
+    keyValue: {
+      type: Object,
+      default: () => ({})
     }
   },
   computed: {
@@ -68,6 +75,14 @@ export default {
         return this.background ? '#f0f0f0' : 'transparent'
       }
       return this.background
+    },
+    /** 当前广告位的配置 */
+    adUnitConfig() {
+      return AdMaster.getAdUnit(this.adUnitKey)
+    },
+    /** 当前广告位的key-value */
+    currentKeyValue() {
+      return Object.assign({}, this.adUnitConfig.keyValue || {}, this.keyValue)
     }
   },
   data () {
@@ -111,6 +126,7 @@ export default {
       const passback = adConfig.passback
       this.adMaster = new AdMaster(this.id, adUnit, {
         size,
+        keyValue: this.currentKeyValue,
         hooks: {
           slotRenderEnded: (evt) => {
             if (evt.isEmpty && !passback && this.emptyHidden) {
@@ -124,6 +140,7 @@ export default {
               this.$nextTick(() => {
                 this.adMaster = new AdMaster(this.id, passback.adUnit, {
                   size: passback.size,
+                  keyValue: this.currentKeyValue,
                   hooks: {
                     slotRenderEnded: (evt) => {
                       this.isEmpty = evt.isEmpty
