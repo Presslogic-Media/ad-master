@@ -52,6 +52,7 @@ export default {
       const adMaster = new AdMaster(this.id, adConfig.adUnit, {
         size: adConfig.size,
         keyValue: this.currentKeyValue,
+        disabled: adConfig.disabled,
         hooks: {
           slotRenderEnded: (evt) => {
             this.isEmpty = evt.isEmpty

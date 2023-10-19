@@ -127,6 +127,7 @@ export default {
       this.adMaster = new AdMaster(this.id, adUnit, {
         size,
         keyValue: this.currentKeyValue,
+        disabled: adConfig.disabled,
         hooks: {
           slotRenderEnded: (evt) => {
             if (evt.isEmpty && !passback && this.emptyHidden) {
@@ -141,6 +142,7 @@ export default {
                 this.adMaster = new AdMaster(this.id, passback.adUnit, {
                   size: passback.size,
                   keyValue: this.currentKeyValue,
+                  disabled: adConfig.disabled,
                   hooks: {
                     slotRenderEnded: (evt) => {
                       this.isEmpty = evt.isEmpty

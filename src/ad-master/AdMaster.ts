@@ -235,6 +235,11 @@ class AdMaster {
     return document.querySelector(`#${this.adSlotId}`)
   }
 
+  /** 禁用广告请求 */
+  get disabled () {
+    return this.localConfig.disabled ?? this.globalConfig.disabled ?? false
+  }
+
   constructor(id: string, adUnit: string, config: IConfig = {}) {
     this.adSlotId = id
     this.adUnit = adUnit
@@ -243,9 +248,12 @@ class AdMaster {
     this.globalConfig = globalConfig
     this.logger = new Logger(`AdMaster logger - ${this.adSlotId}`)
     this.logger.setAdMaster(this)
-    this.initHooks()
-    this.initAdSlot()
+    if (!this.disabled) {
+      this.initHooks()
+      this.initAdSlot()
+    }
     AdMasterGlobal.globalAllAdMaster.push(this)
+
   }
 
   /**
