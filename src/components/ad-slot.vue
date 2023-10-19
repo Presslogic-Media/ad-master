@@ -1,6 +1,7 @@
 
 <template>
   <div
+    v-if="!hidden"
     :data-key="adUnitKey"
     :class="['ad-slot-wrap', { 'is-empty': isEmpty, 'is-fit': isFit }]"
     :style="{ '--bg': currentBg }">
@@ -41,10 +42,20 @@ export default {
       type: Boolean,
       default: false
     },
+    /**
+     * 展示的样式
+     */
     mode: {
       type: String,
       default: 'normal',
       validator: (mode) => ['fit', 'normal'].includes(mode)
+    },
+    /**
+     * 广告空了是否隐藏dom
+     */
+    emptyHidden: {
+      type: Boolean,
+      default: false
     }
   },
   computed: {
@@ -63,7 +74,8 @@ export default {
     return {
       isEmpty: false,
       id: AdMaster.generateId(),
-      adMaster: null
+      adMaster: null,
+      hidden: false
     }
   },
   mounted() {
@@ -101,6 +113,10 @@ export default {
         size,
         hooks: {
           slotRenderEnded: (evt) => {
+            if (evt.isEmpty && !passback && this.emptyHidden) {
+              this.isEmpty = evt.isEmpty
+              this.handleHiddenAdSlot()
+            }
             /** passback */
             if (evt.isEmpty && passback) {
               this.adMaster.destroySlots()
@@ -112,6 +128,7 @@ export default {
                     slotRenderEnded: (evt) => {
                       this.isEmpty = evt.isEmpty
                       this.adMaster.setAdUnitKey(`${this.adUnitKey}-passback`)
+                      if (evt.isEmpty && this.emptyHidden) this.handleHiddenAdSlot()
                       console.log(`=====> passback ${this.isEmpty ? 'error' : 'success'}`)
                       this.$emit("renderEnded", Object.assign({passback: true}, evt))
                     }
@@ -126,6 +143,11 @@ export default {
         }
       })
       this.adMaster.setAdUnitKey(this.adUnitKey)
+    },
+    async handleHiddenAdSlot() {
+      this.adMaster.destroySlots()
+      await this.$nextTick()
+      this.hidden = true
     }
   }
 }

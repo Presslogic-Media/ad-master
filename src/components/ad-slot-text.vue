@@ -40,7 +40,7 @@ export default {
           }
         }
       })
-      console.log('adSlot adMaster: ', adMaster)
+      // console.log('adSlot adMaster: ', adMaster)
     }
   }
 }
