@@ -63,6 +63,13 @@ export default {
     keyValue: {
       type: Object,
       default: () => ({})
+    },
+    /**
+     * 预加载距离
+     */
+    rootMargin: {
+      type: String,
+      default: '500px'
     }
   },
   computed: {
@@ -103,11 +110,14 @@ export default {
     }
     // this.initAdSlot()
   },
+  beforeDestroy() {
+    this.adMaster?.destroySlots()
+  },
   methods: {
     /** 懒加载 */
     initLazyLoad () {
       if (this.adMaster) return
-      const observer = new InterObserver(this.$el, { rootMargin: '500px' })
+      const observer = new InterObserver(this.$el, { rootMargin: this.rootMargin })
       observer.bindObserver(() => {
         this.initAdSlot()
       })

@@ -32,7 +32,8 @@ export default {
   data () {
     return {
       isEmpty: false,
-      id: ''
+      id: '',
+      adMaster: null
     }
   },
   computed: {
@@ -50,6 +51,9 @@ export default {
         this.initAdSlot()
     }
   },
+  beforeDestroy() {
+    this.adMaster?.destroySlots()
+  },
   methods: {
     async initAdSlot() {
       this.id = AdMaster.generateId()
@@ -60,7 +64,7 @@ export default {
       if (this.isSponsor && adConfig.sponsor) {
         adConfig = adConfig.sponsor
       }
-      const adMaster = new AdMaster(this.id, adConfig.adUnit, {
+      this.adMaster = new AdMaster(this.id, adConfig.adUnit, {
         size: adConfig.size,
         keyValue: this.currentKeyValue,
         disabled: adConfig.disabled,
@@ -71,7 +75,7 @@ export default {
           }
         }
       })
-      adMaster.setAdUnitKey(this.adUnitKey)
+      this.adMaster.setAdUnitKey(this.adUnitKey)
     }
   }
 }

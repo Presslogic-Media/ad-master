@@ -28,7 +28,8 @@ export default {
   data () {
     return {
       isEmpty: false,
-      id: AdMaster.generateId()
+      id: AdMaster.generateId(),
+      adMaster: null
     }
   },
   computed: {
@@ -44,12 +45,15 @@ export default {
   mounted() {
     this.initAdSlot()
   },
+  beforeDestroy() {
+    this.adMaster?.destroySlots()
+  },
   methods: {
     async initAdSlot() {
       this.id = AdMaster.generateId()
       await this.$nextTick()
       const adConfig = AdMaster.getAdUnit(this.adUnitKey)
-      const adMaster = new AdMaster(this.id, adConfig.adUnit, {
+      this.adMaster = new AdMaster(this.id, adConfig.adUnit, {
         size: adConfig.size,
         keyValue: this.currentKeyValue,
         disabled: adConfig.disabled,
