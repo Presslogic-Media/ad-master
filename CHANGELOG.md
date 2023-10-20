@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.4.0](https://presslogic/Presslogic-Media/ad-master/compare/v1.3.0...v1.4.0) (2023-10-20)
+
+
+### Features
+
+* 广告组件与script组件增加renderEnded事件 ([c53ef32](https://presslogic/Presslogic-Media/ad-master/commit/c53ef3241fd3d434ec1be7f80ddb912a5d58e5d9))
+
+
+### Chore
+
+* 调整组件 ([55ec6ca](https://presslogic/Presslogic-Media/ad-master/commit/55ec6cae8ff6a19857b9032751a8352dbc00e91f))
+* 调整ad-slot-script组件 ([81ba624](https://presslogic/Presslogic-Media/ad-master/commit/81ba62456e0a6c38403e15e6b0e16d83c2b74905))
+* 调整ad-slot-script组件 ([2e23f34](https://presslogic/Presslogic-Media/ad-master/commit/2e23f34fa446764d16ea4b5883272168310c54a4))
+* 优化组件的逻辑 ([831e455](https://presslogic/Presslogic-Media/ad-master/commit/831e455d3c17fb77e6c032883961a0a3566a8c11))
+* 优化key-value的配置 ([081bbde](https://presslogic/Presslogic-Media/ad-master/commit/081bbdedae165377766d4937219ed6170b6a5a73))
+* disabled配置开发 ([4102fae](https://presslogic/Presslogic-Media/ad-master/commit/4102fae84d1ea5f1a85a91a984b12d4e811a124a))
+
 ## [1.3.0](https://presslogic/Presslogic-Media/ad-master/compare/v1.2.4...v1.3.0) (2023-10-17)
 
 

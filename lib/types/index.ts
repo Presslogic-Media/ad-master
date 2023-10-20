@@ -13,7 +13,8 @@ export interface IConfig {
     networkCode?: number,
     keyValue?: KeyValue,
     pageUrl?: string,
-    size?: Size;
+    size?: Size,
+    disabled?: boolean,
     hooks?: IHooksCallbackMap<HooksKeys>
 }
 
