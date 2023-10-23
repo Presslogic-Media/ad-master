@@ -263,7 +263,6 @@ class AdMaster {
     await Promise.resolve()
     const id = this.adSlotId
     googletag.cmd.push(() => {
-      /** 开启 adsense 测试模式 */
       if (this.adsenseTestMode) {
         googletag.pubads().set('adsense_test_mode', 'on')
       }
@@ -283,9 +282,7 @@ class AdMaster {
         this.adSlot?.setTargeting(key, value)
       })
 
-      /** 影响 ad exchange 广告的填充率 */
       googletag.pubads().set('page_url', AdMasterGlobal.pageUrl)
-      // googletag.pubads().set('page_url', 'https://businessfocus.io')
 
       googletag.enableServices()
     })
