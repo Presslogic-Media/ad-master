@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.4.1](https://presslogic/Presslogic-Media/ad-master/compare/v1.4.0...v1.4.1) (2023-10-23)
+
+
+### Chore
+
+* ad-slot-script增加懒加载 ([aaa85b2](https://presslogic/Presslogic-Media/ad-master/commit/aaa85b2d9b56e14ff95aa604f0d01ffc5e54212f))
+
 ## [1.4.0](https://presslogic/Presslogic-Media/ad-master/compare/v1.3.0...v1.4.0) (2023-10-20)
 
 
