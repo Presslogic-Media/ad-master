@@ -3,11 +3,11 @@
   <div
     v-if="!hidden"
     :data-key="adUnitKey"
-    :class="['ad-slot-wrap', { 'is-empty': isEmpty, 'is-fit': isFit }]"
-    :style="{ '--bg': currentBg }">
+    :class="['ad-slot-wrap', { 'is-empty': isEmpty, 'is-fit': isFit || loading }]"
+    :style="{ '--bg': loading ? 'transparent' : currentBg }">
     <div
       :class="['ad-slot-main']">
-      <small class="ad-slot-title" v-if="adTitle && !isFit">{{ adTitle }}</small>
+      <small class="ad-slot-title" v-if="adTitle && !isFit && !loading">{{ adTitle }}</small>
       <div :id="id"></div>
     </div>
   </div>
@@ -97,7 +97,8 @@ export default {
       isEmpty: false,
       id: AdMaster.generateId(),
       adMaster: null,
-      hidden: false
+      hidden: false,
+      loading: true
     }
   },
   mounted() {
@@ -123,6 +124,7 @@ export default {
       })
     },
     async initAdSlot() {
+      this.loading = true
       this.id = AdMaster.generateId()
       await this.$nextTick()
       let adConfig = AdMaster.getAdUnit(this.adUnitKey)
@@ -160,12 +162,16 @@ export default {
                       if (evt.isEmpty && this.emptyHidden) this.handleHiddenAdSlot()
                       console.log(`=====> passback ${this.isEmpty ? 'error' : 'success'}`)
                       this.$emit("renderEnded", Object.assign({passback: true}, evt))
+                      if (!evt.isEmpty) {
+                        this.loading = false
+                      }
                     }
                   }
                 })
                 this.adMaster.passback = true
               })
             }else{
+              this.loading = false
               this.$emit("renderEnded", evt)
             }
           }

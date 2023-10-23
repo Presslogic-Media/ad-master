@@ -7,7 +7,7 @@
 </template>
 
 <script lang="ts">
-import { AdMaster, AdMasterGlobal } from '../ad-master/AdMaster'
+import { AdMaster, AdMasterGlobal, InterObserver } from '../ad-master/AdMaster'
 
 export default {
   props: {
@@ -28,6 +28,13 @@ export default {
       type: Object,
       default: () => ({})
     },
+    /**
+     * 预加载距离
+     */
+     rootMargin: {
+      type: String,
+      default: '0px'
+    }
   },
   data () {
     return {
@@ -48,13 +55,26 @@ export default {
   },
   mounted() {
     if (!AdMasterGlobal.disabledScript) {
+      if (!this.adUnitConfig) return
+      if (this.adUnitConfig.lazy) {
+        this.initLazyLoad()
+      } else {
         this.initAdSlot()
+      }
     }
   },
   beforeDestroy() {
     this.adMaster?.destroySlots()
   },
   methods: {
+    /** 懒加载 */
+    initLazyLoad () {
+      if (this.adMaster) return
+      const observer = new InterObserver(this.$el, { rootMargin: this.rootMargin })
+      observer.bindObserver(() => {
+        this.initAdSlot()
+      })
+    },
     async initAdSlot() {
       this.id = AdMaster.generateId()
       await this.$nextTick()
