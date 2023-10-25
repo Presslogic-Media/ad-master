@@ -1,7 +1,7 @@
 <template>
     <div
         :data-key="adUnitKey"
-        class="ad-slot-script-wrap">
+        :class="['ad-slot-script-wrap', { 'no-space': noSpace }]">
         <div :id="id"></div>
     </div>
 </template>
@@ -34,6 +34,13 @@ export default {
      rootMargin: {
       type: String,
       default: '0px'
+    },
+    /**
+     * 不占位置的script广告
+     */
+    noSpace: {
+      type: Boolean,
+      default: true
     }
   },
   data () {
@@ -105,7 +112,9 @@ export default {
 .ad-slot-script-wrap {
     display: flex;
     justify-content: center;
-    width: 1px;
-    height: 0px;
+    &.no-space {
+      width: 1px;
+      height: 0px;
+    }
 }
 </style>
