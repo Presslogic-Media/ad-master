@@ -1,7 +1,6 @@
 
 <template>
   <div
-    v-if="!hidden"
     :data-key="adUnitKey"
     :class="['ad-slot-wrap', { 'is-empty': isEmpty, 'is-fit': isFit || loading }]"
     :style="{ '--bg': loading ? 'transparent' : currentBg }">
@@ -9,6 +8,7 @@
       :class="['ad-slot-main']">
       <small class="ad-slot-title" v-if="adTitle && !isFit && !loading">{{ adTitle }}</small>
       <div :id="id"></div>
+      <div :id="passbackId" v-if="passbackId"></div>
     </div>
   </div>
 </template>
@@ -51,13 +51,6 @@ export default {
       validator: (mode) => ['fit', 'normal'].includes(mode)
     },
     /**
-     * 广告空了是否隐藏dom
-     */
-    emptyHidden: {
-      type: Boolean,
-      default: false
-    },
-    /**
      * 广告位级别的key-value
      */
     keyValue: {
@@ -96,6 +89,7 @@ export default {
     return {
       isEmpty: false,
       id: AdMaster.generateId(),
+      passbackId: null,
       adMaster: null,
       hidden: false,
       loading: true
@@ -142,16 +136,15 @@ export default {
         disabled: adConfig.disabled,
         hooks: {
           slotRenderEnded: (evt) => {
-            if (evt.isEmpty && !passback && this.emptyHidden) {
+            if (evt.isEmpty && !passback) {
               this.isEmpty = evt.isEmpty
-              this.handleHiddenAdSlot()
             }
             /** passback */
             if (evt.isEmpty && passback) {
-              this.adMaster.destroySlots()
-              this.id = AdMaster.generateId()
+              // this.adMaster.destroySlots()
+              this.passbackId = AdMaster.generateId()
               this.$nextTick(() => {
-                this.adMaster = new AdMaster(this.id, passback.adUnit, {
+                this.adMaster = new AdMaster(this.passbackId, passback.adUnit, {
                   size: passback.size,
                   keyValue: this.currentKeyValue,
                   disabled: adConfig.disabled,
@@ -159,8 +152,7 @@ export default {
                     slotRenderEnded: (evt) => {
                       this.isEmpty = evt.isEmpty
                       this.adMaster.setAdUnitKey(`${this.adUnitKey}-passback`)
-                      if (evt.isEmpty && this.emptyHidden) this.handleHiddenAdSlot()
-                      console.log(`=====> passback ${this.isEmpty ? 'error' : 'success'}`)
+                      console.log(`=====> passback ${this.isEmpty ? 'empty' : 'success'}`)
                       this.$emit("renderEnded", Object.assign({passback: true}, evt))
                       if (!evt.isEmpty) {
                         this.loading = false
@@ -179,11 +171,6 @@ export default {
       })
       this.adMaster.setAdUnitKey(this.adUnitKey)
     },
-    async handleHiddenAdSlot() {
-      this.adMaster.destroySlots()
-      await this.$nextTick()
-      this.hidden = true
-    }
   }
 }
 </script>

@@ -1,7 +1,7 @@
 
 <template>
   <div class="ad-slot-text-wrap">
-    <div class="ad-slot-text-main" v-if="!isEmpty">
+    <div class="ad-slot-text-main">
       <div :id="id"></div>
     </div>
   </div>
@@ -96,8 +96,6 @@ export default {
     flex-direction: column;
     align-items: center;
     margin: 0 auto;
-    padding-top: 12px;
-    //padding-bottom: 24px;
     ::v-deep iframe {
       width: 100vw;
       height: auto;
