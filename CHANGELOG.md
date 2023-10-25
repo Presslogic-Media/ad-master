@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.4.3](https://presslogic/Presslogic-Media/ad-master/compare/v1.4.2...v1.4.3) (2023-10-25)
+
+
+### Chore
+
+* 优化广告passback ([7504976](https://presslogic/Presslogic-Media/ad-master/commit/7504976a2ad009920b583e3c94d1b0baee97e543))
+
 ### [1.4.2](https://presslogic/Presslogic-Media/ad-master/compare/v1.4.1...v1.4.2) (2023-10-23)
 
 
