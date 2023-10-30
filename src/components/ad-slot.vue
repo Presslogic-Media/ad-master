@@ -14,15 +14,12 @@
 </template>
 
 <script lang="ts">
-import { AdMaster, InterObserver } from '../ad-master/AdMaster'
+import { AdMaster } from '../ad-master/AdMaster'
+import AdSlotBase from './ad-slot-base.vue'
 
 export default {
+  extends: AdSlotBase,
   props: {
-    /** 广告的别名key */
-    adUnitKey: {
-      type: String,
-      default: 'M1'
-    },
     /** 广告的提示标题 */
     adTitle: {
       type: String,
@@ -36,26 +33,12 @@ export default {
       default: true
     },
     /**
-     * 是否为sponor广告
-     */
-    isSponsor: {
-      type: Boolean,
-      default: false
-    },
-    /**
      * 展示的样式
      */
     mode: {
       type: String,
       default: 'normal',
       validator: (mode) => ['fit', 'normal'].includes(mode)
-    },
-    /**
-     * 广告位级别的key-value
-     */
-    keyValue: {
-      type: Object,
-      default: () => ({})
     },
     /**
      * 预加载距离
@@ -76,47 +59,19 @@ export default {
       }
       return this.background
     },
-    /** 当前广告位的配置 */
-    adUnitConfig() {
-      return AdMaster.getAdUnit(this.adUnitKey)
-    },
-    /** 当前广告位的key-value */
-    currentKeyValue() {
-      return Object.assign({}, this.adUnitConfig.keyValue || {}, this.keyValue)
-    }
   },
   data () {
     return {
       isEmpty: false,
-      id: AdMaster.generateId(),
       passbackId: null,
-      adMaster: null,
       hidden: false,
       loading: true
     }
   },
-  mounted() {
-    const config = AdMaster.getAdUnit(this.adUnitKey)
-    if (!config) return
-    if (config.lazy) {
-      this.initLazyLoad()
-    } else {
-      this.initAdSlot()
-    }
-    // this.initAdSlot()
-  },
-  beforeDestroy() {
-    this.adMaster?.destroySlots()
-  },
   methods: {
-    /** 懒加载 */
-    initLazyLoad () {
-      if (this.adMaster) return
-      const observer = new InterObserver(this.$el, { rootMargin: this.rootMargin })
-      observer.bindObserver(() => {
-        this.initAdSlot()
-      })
-    },
+    /**
+     * 初始化函数, 继承于AdSlotBase的必要条件
+     */
     async initAdSlot() {
       this.loading = true
       this.id = AdMaster.generateId()

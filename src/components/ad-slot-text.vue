@@ -8,22 +8,12 @@
 </template>
 
 <script lang="ts">
-import { AdMaster, InterObserver } from '../ad-master/AdMaster'
+import { AdMaster } from '../ad-master/AdMaster'
+import AdSlotBase from './ad-slot-base.vue'
 
 export default {
+  extends: AdSlotBase,
   props: {
-    /** 广告的别名key */
-    adUnitKey: {
-      type: String,
-      default: 'feng-test-ad-unit'
-    },
-    /**
-     * 广告位级别的key-value
-     */
-     keyValue: {
-      type: Object,
-      default: () => ({})
-    },
     /**
      * 预加载距离
      */
@@ -35,40 +25,12 @@ export default {
   data () {
     return {
       isEmpty: false,
-      id: AdMaster.generateId(),
-      adMaster: null
     }
-  },
-  computed: {
-    /** 当前广告位的配置 */
-    adUnitConfig() {
-      return AdMaster.getAdUnit(this.adUnitKey)
-    },
-    /** 当前广告位的key-value */
-    currentKeyValue() {
-      return Object.assign({}, this.adUnitConfig.keyValue || {}, this.keyValue)
-    }
-  },
-  mounted() {
-    if (!this.adUnitConfig) return
-    if (this.adUnitConfig.lazy) {
-      this.initLazyLoad()
-    } else {
-      this.initAdSlot()
-    }
-  },
-  beforeDestroy() {
-    this.adMaster?.destroySlots()
   },
   methods: {
-    /** 懒加载 */
-    initLazyLoad () {
-      if (this.adMaster) return
-      const observer = new InterObserver(this.$el, { rootMargin: this.rootMargin })
-      observer.bindObserver(() => {
-        this.initAdSlot()
-      })
-    },
+    /**
+     * 初始化函数, 继承于AdSlotBase的必要条件
+     */
     async initAdSlot() {
       this.id = AdMaster.generateId()
       await this.$nextTick()
@@ -83,7 +45,6 @@ export default {
           }
         }
       })
-      // console.log('adSlot adMaster: ', adMaster)
     }
   }
 }
