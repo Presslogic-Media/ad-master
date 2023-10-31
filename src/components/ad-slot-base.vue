@@ -58,8 +58,8 @@ export default {
         }
     },
     beforeDestroy() {
-        this.lazyObserver.destory()
-        this.adMaster?.destroySlots()
+        this.lazyObserver?.destory?.()
+        this.adMaster?.destroySlots?.()
     },
     methods: {
         /** 懒加载 */
