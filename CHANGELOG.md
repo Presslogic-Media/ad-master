@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.4.7](https://presslogic/Presslogic-Media/ad-master/compare/v1.4.6...v1.4.7) (2023-10-31)
+
+
+### Chore
+
+* 修复组件报错问题 ([45aca45](https://presslogic/Presslogic-Media/ad-master/commit/45aca45bc9ba12769df0cb7b7d20c660986577d9))
+
 ### [1.4.6](https://presslogic/Presslogic-Media/ad-master/compare/v1.4.5...v1.4.6) (2023-10-31)
 
 
