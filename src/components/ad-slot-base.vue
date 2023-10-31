@@ -50,7 +50,7 @@ export default {
     },
     mounted() {
         const config = this.adUnitConfig
-        if (!config) return
+        if (!config || ['ad-slot-script'].includes(this.$options.name)) return
         if (config.lazy) {
             this.initLazyLoad()
         } else {

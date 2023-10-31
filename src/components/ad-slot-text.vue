@@ -12,6 +12,7 @@ import { AdMaster } from '../ad-master/AdMaster'
 import AdSlotBase from './ad-slot-base.vue'
 
 export default {
+  name: 'ad-slot-text',
   extends: AdSlotBase,
   props: {
     /**

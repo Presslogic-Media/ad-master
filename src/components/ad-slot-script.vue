@@ -11,6 +11,7 @@ import { AdMaster, AdMasterGlobal } from '../ad-master/AdMaster'
 import AdSlotBase from './ad-slot-base.vue'
 
 export default {
+  name: 'ad-slot-script',
   extends: AdSlotBase,
   props: {
     /**

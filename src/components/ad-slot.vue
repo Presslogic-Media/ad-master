@@ -18,6 +18,7 @@ import { AdMaster } from '../ad-master/AdMaster'
 import AdSlotBase from './ad-slot-base.vue'
 
 export default {
+  name: 'ad-slot',
   extends: AdSlotBase,
   props: {
     /** 广告的提示标题 */
