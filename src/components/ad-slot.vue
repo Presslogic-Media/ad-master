@@ -108,7 +108,7 @@ export default {
                     slotRenderEnded: (evt) => {
                       this.isEmpty = evt.isEmpty
                       this.adMaster.setAdUnitKey(`${this.adUnitKey}-passback`)
-                      console.log(`=====> passback ${this.isEmpty ? 'empty' : 'success'}`)
+                      // console.log(`=====> passback ${this.isEmpty ? 'empty' : 'success'}`)
                       this.$emit("renderEnded", Object.assign({passback: true}, evt))
                       if (!evt.isEmpty) {
                         this.loading = false

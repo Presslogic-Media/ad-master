@@ -69,8 +69,8 @@ export default {
 
 <style lang="scss" scoped>
 .ad-slot-script-wrap {
-    display: flex;
-    justify-content: center;
+    // display: flex;
+    // justify-content: center;
     &.no-space {
       width: 1px;
       height: 0px;
