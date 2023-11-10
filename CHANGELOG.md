@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.4.9](https://presslogic/Presslogic-Media/ad-master/compare/v1.4.8...v1.4.9) (2023-11-10)
+
+
+### Bug Fixes
+
+* 修复懒加载立即请求的问题 ([2b0efe1](https://presslogic/Presslogic-Media/ad-master/commit/2b0efe155702729ef89a81f7969bf65a245eb043))
+
 ### [1.4.8](https://presslogic/Presslogic-Media/ad-master/compare/v1.4.7...v1.4.8) (2023-11-08)
 
 
