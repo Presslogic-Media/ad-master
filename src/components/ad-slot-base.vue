@@ -29,6 +29,13 @@ export default {
         rootMargin: {
             type: String,
             default: '0px'
+        },
+        /**
+         * lazy load 的请求delay, 单位: ms
+         */
+        lazyDelay: {
+            type: Number,
+            default: 50
         }
     },
     data() {
@@ -50,9 +57,11 @@ export default {
     },
     mounted() {
         const config = this.adUnitConfig
-        if (!config || ['ad-slot-script'].includes(this.$options.name)) return
+        if (!config || ['ad-slot-script'].includes(this.$options.name) || config.disabled) return
         if (config.lazy) {
-            this.initLazyLoad()
+            setTimeout(() => {
+                this.initLazyLoad()
+            }, this.lazyDelay)
         } else {
             this.initAdSlot()
         }
