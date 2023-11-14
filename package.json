@@ -1,6 +1,6 @@
 {
   "name": "ad-master",
-  "version": "1.4.9",
+  "version": "1.4.10",
   "description": "",
   "main": "lib/index.js",
   "scripts": {
