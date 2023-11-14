@@ -6,7 +6,7 @@
     :style="{ '--bg': loading ? 'transparent' : currentBg }">
     <div
       :class="['ad-slot-main']">
-      <small class="ad-slot-title" v-if="adTitle && !isFit && !loading">{{ adTitle }}</small>
+      <small class="ad-slot-title" v-if="adTitle && !isFit && !loading && !isEmpty">{{ adTitle }}</small>
       <div :id="id"></div>
       <div :id="passbackId" v-if="passbackId"></div>
     </div>
@@ -65,8 +65,7 @@ export default {
     return {
       isEmpty: false,
       passbackId: null,
-      hidden: false,
-      loading: true
+      loading: true,
     }
   },
   methods: {
@@ -97,7 +96,7 @@ export default {
             }
             /** passback */
             if (evt.isEmpty && passback) {
-              // this.adMaster.destroySlots()
+              this.adMaster.destroySlots()
               this.passbackId = AdMaster.generateId()
               this.$nextTick(() => {
                 this.adMaster = new AdMaster(this.passbackId, passback.adUnit, {
@@ -110,15 +109,16 @@ export default {
                       this.adMaster.setAdUnitKey(`${this.adUnitKey}-passback`)
                       // console.log(`=====> passback ${this.isEmpty ? 'empty' : 'success'}`)
                       this.$emit("renderEnded", Object.assign({passback: true}, evt))
-                      if (!evt.isEmpty) {
-                        this.loading = false
+                      this.loading = false
+                      if (evt.isEmpty) {
+                        this.adMaster.destroySlots()
                       }
                     }
                   }
                 })
                 this.adMaster.passback = true
               })
-            }else{
+            } else{
               this.loading = false
               this.$emit("renderEnded", evt)
             }
