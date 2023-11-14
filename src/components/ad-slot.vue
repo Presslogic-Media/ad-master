@@ -93,6 +93,7 @@ export default {
           slotRenderEnded: (evt) => {
             if (evt.isEmpty && !passback) {
               this.isEmpty = evt.isEmpty
+              this.adMaster.destroySlots()
             }
             /** passback */
             if (evt.isEmpty && passback) {
