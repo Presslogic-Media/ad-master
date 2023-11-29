@@ -53,7 +53,7 @@ export default {
         /** 当前广告位的key-value */
         currentKeyValue() {
             return Object.assign({}, this.adUnitConfig.keyValue || {}, this.keyValue)
-        }
+        },
     },
     mounted() {
         const config = this.adUnitConfig

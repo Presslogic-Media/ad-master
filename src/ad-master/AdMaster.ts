@@ -172,6 +172,19 @@ class AdMasterGlobal {
       })
     })
   }
+
+  /**
+   * 设置当个全局的key-value
+   * @param key 
+   * @param value 
+   */
+  static setKeyValue(key: string, value: string) {
+    googletag.cmd.push(() => {
+      /** 设置key-value */
+        googletag.pubads().setTargeting(key, value)
+    })
+  }
+
 }
 
 /**
