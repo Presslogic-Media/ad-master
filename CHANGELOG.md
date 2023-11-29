@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.5.0](https://presslogic/Presslogic-Media/ad-master/compare/v1.4.11...v1.5.0) (2023-11-29)
+
+
+### Features
+
+* 新增动态更新全局key-value函数 ([c91c8c0](https://presslogic/Presslogic-Media/ad-master/commit/c91c8c035327c39b870063397e2fea55e411d133))
+
 ### [1.4.11](https://presslogic/Presslogic-Media/ad-master/compare/v1.4.10...v1.4.11) (2023-11-14)
 
 
