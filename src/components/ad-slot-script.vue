@@ -1,7 +1,11 @@
 <template>
     <div
         :data-key="adUnitKey"
-        :class="['ad-slot-script-wrap', { 'no-space': noSpace }]">
+        :class="['ad-slot-script-wrap', {
+          'no-space': noSpace,
+          'is-filled': isFilled !== null && isFilled,
+          'is-unfilled': isFilled !== null && !isFilled,
+          }]">
         <div :id="id"></div>
     </div>
 </template>
@@ -25,6 +29,8 @@ export default {
   data () {
     return {
       isEmpty: false,
+      /** 是否填充广告, null是未加载完 */
+      isFilled: null
     }
   },
   mounted() {
@@ -57,6 +63,7 @@ export default {
         hooks: {
           slotRenderEnded: (evt) => {
             this.isEmpty = evt.isEmpty
+            this.isFilled = !evt.isEmpty
             this.$emit("renderEnded", evt)
           }
         }

@@ -2,7 +2,12 @@
 <template>
   <div
     :data-key="adUnitKey"
-    :class="['ad-slot-wrap', { 'is-empty': isEmpty, 'is-fit': isFit || loading }]"
+    :class="['ad-slot-wrap', {
+      'is-empty': isEmpty,
+      'is-fit': isFit || loading,
+      'is-filled': isFilled !== null && isFilled,
+      'is-unfilled': isFilled !== null && !isFilled,
+    }]"
     :style="{ '--bg': loading ? 'transparent' : currentBg }">
     <div
       :class="['ad-slot-main']">
@@ -66,6 +71,8 @@ export default {
       isEmpty: false,
       passbackId: null,
       loading: true,
+      /** 是否填充广告, null是未加载完 */
+      isFilled: null
     }
   },
   methods: {
@@ -91,9 +98,16 @@ export default {
         disabled: adConfig.disabled,
         hooks: {
           slotRenderEnded: (evt) => {
-            if (evt.isEmpty && !passback) {
-              this.isEmpty = evt.isEmpty
-              this.adMaster.destroySlots()
+            if (evt.isEmpty) {
+              if (!passback) {
+                this.isEmpty = evt.isEmpty
+                this.adMaster.destroySlots()
+                this.isFilled = !evt.isEmpty
+              }
+            } else {
+              if (!passback) {
+                this.isFilled = !evt.isEmpty
+              }
             }
             /** passback */
             if (evt.isEmpty && passback) {
@@ -107,6 +121,7 @@ export default {
                   hooks: {
                     slotRenderEnded: (evt) => {
                       this.isEmpty = evt.isEmpty
+                      this.isFilled = !evt.isEmpty
                       this.adMaster.setAdUnitKey(`${this.adUnitKey}-passback`)
                       // console.log(`=====> passback ${this.isEmpty ? 'empty' : 'success'}`)
                       this.$emit("renderEnded", Object.assign({passback: true}, evt))
