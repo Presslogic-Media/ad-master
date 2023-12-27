@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.6.0](https://presslogic/Presslogic-Media/ad-master/compare/v1.5.0...v1.6.0) (2023-12-27)
+
+
+### Features
+
+* 增加filled unfilled状态 ([08beb47](https://presslogic/Presslogic-Media/ad-master/commit/08beb4762f4404d75a0e49e1a7dffd7e19dabf19))
+
 ## [1.5.0](https://presslogic/Presslogic-Media/ad-master/compare/v1.4.11...v1.5.0) (2023-11-29)
 
 
