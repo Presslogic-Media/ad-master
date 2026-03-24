@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.7.0](https://presslogic/Presslogic-Media/ad-master/compare/v1.6.0...v1.7.0) (2026-03-24)
+
+
+### Features
+
+* GS-TW的广告请求改成SRA模式 ([1551ff6](https://presslogic/Presslogic-Media/ad-master/commit/1551ff6ba8aa318373d7bf4ba93f62d0edc2b565))
+
 ## [1.6.0](https://presslogic/Presslogic-Media/ad-master/compare/v1.5.0...v1.6.0) (2023-12-27)
 
 
