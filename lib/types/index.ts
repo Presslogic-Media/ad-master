@@ -15,7 +15,9 @@ export interface IConfig {
     pageUrl?: string,
     size?: Size,
     disabled?: boolean,
-    hooks?: IHooksCallbackMap<HooksKeys>
+    hooks?: IHooksCallbackMap<HooksKeys>,
+    /** 是否开启 SRA（Single Request Architecture）模式，开启后会等待 50ms 将多个广告合并为一次请求 */
+    enableSRA?: boolean,
 }
 
 

@@ -61,6 +61,13 @@ class AdMasterGlobal {
   /** 当前页面的url */
   static pageUrl = ''
 
+  /** SRA 模式等待时长（ms） */
+  private static readonly SRA_DELAY_MS = 50
+  /** SRA 模式待发起请求的广告 ID 队列 */
+  private static sraPendingIds: string[] = []
+  /** SRA 定时器句柄 */
+  private static sraTimer: ReturnType<typeof setTimeout> | null = null
+
   private constructor(options: IConfig = {}) {
     this.config = options
     AdMasterGlobal.setPageUrl(options.pageUrl)
@@ -86,6 +93,11 @@ class AdMasterGlobal {
     if (window.googletag) return
     window.googletag = window.googletag || { cmd: [] } as any
     const config = AdMasterGlobal.getInstance().config
+    if (config.enableSRA) {
+      googletag.cmd.push(() => {
+        googletag.pubads().enableSingleRequest()
+      })
+    }
     AdMasterGlobal.setTargetingGlobal(config.keyValue || {})
   }
 
@@ -185,6 +197,34 @@ class AdMasterGlobal {
     })
   }
 
+  /**
+   * SRA 模式：将广告 ID 加入队列，首次入队时启动 50ms 定时器
+   */
+  static addToSRAQueue(id: string) {
+    AdMasterGlobal.sraPendingIds.push(id)
+    if (!AdMasterGlobal.sraTimer) {
+      AdMasterGlobal.sraTimer = setTimeout(() => {
+        AdMasterGlobal.flushSRAQueue()
+      }, AdMasterGlobal.SRA_DELAY_MS)
+    }
+  }
+
+  /**
+   * SRA 模式：清空队列，将所有待展示的广告一并发起请求
+   */
+  static flushSRAQueue() {
+    const ids = [...AdMasterGlobal.sraPendingIds]
+    AdMasterGlobal.sraPendingIds = []
+    clearTimeout(AdMasterGlobal.sraTimer!)
+    AdMasterGlobal.sraTimer = null
+    if (ids.length === 0) return
+    googletag.cmd.push(() => {
+      ids.forEach(id => {
+        googletag.display(id)
+      })
+    })
+  }
+
 }
 
 /**
@@ -275,6 +315,7 @@ class AdMaster {
   async initAdSlot() {
     await Promise.resolve()
     const id = this.adSlotId
+    const enableSRA = !!this.globalConfig.enableSRA
     googletag.cmd.push(() => {
       if (this.adsenseTestMode) {
         googletag.pubads().set('adsense_test_mode', 'on')
@@ -299,14 +340,20 @@ class AdMaster {
 
       googletag.enableServices()
     })
-    const logger = this.logger
-    /** 发起广告请求 */
-    googletag.cmd.push(function () {
-      logger.setLog({
-        title: 'googletag.display'
+
+    if (enableSRA) {
+      /** SRA 模式：进入队列，等待 50ms 后与其他广告一并发起请求 */
+      AdMasterGlobal.addToSRAQueue(id)
+    } else {
+      /** 原始模式：立即发起单个广告请求 */
+      const logger = this.logger
+      googletag.cmd.push(function () {
+        logger.setLog({
+          title: 'googletag.display'
+        })
+        googletag.display(id)
       })
-      googletag.display(id)
-    })
+    }
   }
 
   /**
