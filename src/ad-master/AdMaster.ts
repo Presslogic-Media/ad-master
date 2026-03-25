@@ -198,6 +198,42 @@ class AdMasterGlobal {
   }
 
   /**
+   * 按 ID 清理失效的广告实例
+   * 销毁对应的 GPT slots，从 SRA 队列和全局实例列表中移除
+   */
+  static resetByIds(staleIds: string[]) {
+    if (staleIds.length === 0) return
+    const staleSet = new Set(staleIds)
+
+    // 从 SRA 队列中移除失效的 ID
+    AdMasterGlobal.sraPendingIds = AdMasterGlobal.sraPendingIds.filter(id => !staleSet.has(id))
+    // 如果队列清空了，也清掉定时器
+    if (AdMasterGlobal.sraPendingIds.length === 0 && AdMasterGlobal.sraTimer) {
+      clearTimeout(AdMasterGlobal.sraTimer)
+      AdMasterGlobal.sraTimer = null
+    }
+
+    // 找出失效实例，销毁其 GPT slot
+    const staleAdMasters = AdMasterGlobal.globalAllAdMaster.filter(ad => staleSet.has(ad.adSlotId))
+    if (staleAdMasters.length > 0 && typeof googletag !== 'undefined' && googletag.apiReady) {
+      const slotsToDestroy = staleAdMasters.map(ad => ad.adSlot).filter(Boolean)
+      if (slotsToDestroy.length > 0) {
+        googletag.cmd.push(() => {
+          googletag.destroySlots(slotsToDestroy)
+        })
+      }
+    }
+
+    // 从全局列表中移除失效实例
+    AdMasterGlobal.globalAllAdMaster = AdMasterGlobal.globalAllAdMaster.filter(ad => !staleSet.has(ad.adSlotId))
+
+    // 清除失效实例的 hooks
+    staleIds.forEach(id => {
+      delete AdMasterGlobal.globalHooksCallbackMap[id]
+    })
+  }
+
+  /**
    * SRA 模式：将广告 ID 加入队列，首次入队时启动 50ms 定时器
    */
   static addToSRAQueue(id: string) {
@@ -237,7 +273,7 @@ class AdMaster {
   /** 局部配置 */
   private localConfig: IConfig = {}
   /** 广告插槽对象 */
-  private adSlot!: googletag.Slot
+  adSlot!: googletag.Slot
   /** 广告的唯一ID */
   adSlotId = ''
   /** 广告单元 */
@@ -301,12 +337,15 @@ class AdMaster {
     this.globalConfig = globalConfig
     this.logger = new Logger(`AdMaster logger - ${this.adSlotId}`)
     this.logger.setAdMaster(this)
+
+    // SPA 路由切换检测：如果旧实例的 DOM 已不存在，说明页面已切换，自动清理
+    AdMaster.autoResetIfStale()
+
     if (!this.disabled) {
       this.initHooks()
       this.initAdSlot()
     }
     AdMasterGlobal.globalAllAdMaster.push(this)
-
   }
 
   /**
@@ -423,6 +462,21 @@ class AdMaster {
         googletag.pubads().refresh([this.adSlot])
       })
     }, time)
+  }
+
+  /**
+   * 检测旧实例的 DOM 是否已销毁，如果有则自动重置
+   * SPA 路由切换时，旧页面的 DOM 会被移除，以此判断页面已切换
+   */
+  private static autoResetIfStale() {
+    const existing = AdMasterGlobal.globalAllAdMaster
+    if (existing.length === 0) return
+    const staleIds = existing
+      .filter(ad => !document.getElementById(ad.adSlotId))
+      .map(ad => ad.adSlotId)
+    if (staleIds.length > 0) {
+      AdMasterGlobal.resetByIds(staleIds)
+    }
   }
 
   static generateId () {
