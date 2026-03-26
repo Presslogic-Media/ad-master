@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.7.2](https://presslogic/Presslogic-Media/ad-master/compare/v1.7.1...v1.7.2) (2026-03-26)
+
+
+### Bug Fixes
+
+* 修复广告位被注销问题,SRA请求后清理sraPendingIds ([526cfb8](https://presslogic/Presslogic-Media/ad-master/commit/526cfb885897140e6f8d574ca94296010b37b2c5))
+
 ### [1.7.1](https://presslogic/Presslogic-Media/ad-master/compare/v1.7.0...v1.7.1) (2026-03-25)
 
 
