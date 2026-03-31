@@ -83,6 +83,7 @@ export default {
       this.loading = true
       this.id = AdMaster.generateId()
       await this.$nextTick()
+      if (this._isDestroyed) return
       let adConfig = AdMaster.getAdUnit(this.adUnitKey)
       if (!adConfig) return
       /** sponsor 广告 */

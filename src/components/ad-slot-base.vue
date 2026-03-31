@@ -42,7 +42,8 @@ export default {
         return {
             id: AdMaster.generateId(),
             adMaster: null,
-            lazyObserver: null
+            lazyObserver: null,
+            lazyTimer: null,
         }
     },
     computed: {
@@ -59,7 +60,7 @@ export default {
         const config = this.adUnitConfig
         if (!config || ['ad-slot-script'].includes(this.$options.name) || config.disabled) return
         if (config.lazy) {
-            setTimeout(() => {
+            this.lazyTimer = setTimeout(() => {
                 this.initLazyLoad()
             }, this.lazyDelay)
         } else {
@@ -67,6 +68,10 @@ export default {
         }
     },
     beforeDestroy() {
+        if (this.lazyTimer) {
+            clearTimeout(this.lazyTimer)
+            this.lazyTimer = null
+        }
         this.lazyObserver?.destory?.()
         this.adMaster?.destroySlots?.()
     },
