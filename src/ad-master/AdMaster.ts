@@ -458,7 +458,6 @@ class InterObserver {
   constructor(ele: Element, options?: IntersectionObserverInit) {
     this.target = ele
     this.options = options || this.defaultOptions
-    this.initObser()
   }
 
   initObser() {
@@ -477,6 +476,7 @@ class InterObserver {
 
   bindObserver(callback: () => void) {
     this.callback = callback
+    this.initObser()
   }
 
   destory() {
