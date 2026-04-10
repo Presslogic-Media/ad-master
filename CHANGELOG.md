@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.7.3](https://github.com/Presslogic-Media/ad-master/compare/v1.7.2...v1.7.3) (2026-04-10)
+
+
+### Bug Fixes
+
+* 修复lazy广告InterObserver竞态条件及组件销毁后资源未清理问题 ([c260ef6](https://github.com/Presslogic-Media/ad-master/commit/c260ef608b6774895480e0ffb47301491f1f558b))
+
 ### [1.7.2](https://presslogic/Presslogic-Media/ad-master/compare/v1.7.1...v1.7.2) (2026-03-26)
 
 
